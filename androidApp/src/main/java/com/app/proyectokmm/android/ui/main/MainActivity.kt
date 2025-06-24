@@ -3,39 +3,62 @@ package com.app.proyectokmm.android.ui.main
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.proyectokmm.Greeting
 import com.app.proyectokmm.android.MyApplicationTheme
+import com.app.proyectokmm.android.ui.characters.CharactersAdapter
+import com.app.proyectokmm.android.ui.common.ScreenState
+import kotlinx.coroutines.launch
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
+
+    private lateinit var charactersAdapter: CharactersAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            MyApplicationTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    GreetingView(Greeting().greet())
+
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        // Setup del listado
+        charactersAdapter = CharactersAdapter()
+        val verticalLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        with(binding.charactersList) {
+            this.adapter = charactersAdapter
+            this.layoutManager = verticalLayoutManager
+            this.addItemDecoration(VerticalSpaceItemDecoration(16))
+        }
+
+        // Listen to Retrofit response
+        val viewModel =
+            ViewModelProvider(this, CharactersViewModelFactory())[CharactersViewModel::class.java]
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.CREATED) {
+                viewModel.screenState.collect {
+                    when (it) {
+                        ScreenState.Loading -> showLoading()
+                        is ScreenState.ShowCharacters -> showCharacters(it.list)
+                    }
                 }
             }
         }
     }
-}
 
-@Composable
-fun GreetingView(text: String) {
-    Text(text = text)
-}
+    private fun showLoading() {
 
-@Preview
-@Composable
-fun DefaultPreview() {
-    MyApplicationTheme {
-        GreetingView("Hello, Android!")
+    }
+
+    private fun showCharacters(list: List<Character>) {
+        charactersAdapter.submitList(list)
     }
 }

@@ -49,5 +49,7 @@ dependencies {
     implementation(libs.androidx.recyclerview)
     implementation(libs.androidx.cardview)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.appcompat)
     debugImplementation(libs.compose.ui.tooling)
+    implementation(libs.retrofit)
 }
