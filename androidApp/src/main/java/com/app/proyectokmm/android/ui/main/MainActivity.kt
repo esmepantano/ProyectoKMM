@@ -13,6 +13,7 @@ import com.app.proyectokmm.android.ui.common.ScreenState
 import kotlinx.coroutines.launch
 import com.app.proyectokmm.android.databinding.ActivityMainBinding
 import com.app.proyectokmm.android.ui.common.VerticalSpaceItemDecoration
+import com.app.proyectokmm.domain.model.Character
 
 class MainActivity : AppCompatActivity() {
 
