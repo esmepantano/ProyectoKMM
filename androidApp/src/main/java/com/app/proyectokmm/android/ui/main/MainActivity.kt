@@ -1,24 +1,18 @@
 package com.app.proyectokmm.android.ui.main
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.app.proyectokmm.Greeting
-import com.app.proyectokmm.android.MyApplicationTheme
 import com.app.proyectokmm.android.ui.characters.CharactersAdapter
 import com.app.proyectokmm.android.ui.common.ScreenState
 import kotlinx.coroutines.launch
+import com.app.proyectokmm.android.databinding.ActivityMainBinding
+import com.app.proyectokmm.android.ui.common.VerticalSpaceItemDecoration
 
 class MainActivity : AppCompatActivity() {
 
