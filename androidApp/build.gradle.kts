@@ -52,4 +52,6 @@ dependencies {
     implementation(libs.androidx.appcompat)
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+
 }

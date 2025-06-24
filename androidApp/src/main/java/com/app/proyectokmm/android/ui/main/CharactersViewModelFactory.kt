@@ -2,8 +2,13 @@ package com.app.proyectokmm.android.ui.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.app.proyectokmm.data.remote.CharactersService
+import com.app.proyectokmm.data.remote.MarvelCharactersClient
 import com.app.proyectokmm.data.remote.PublicKeyInterceptor
+import com.app.proyectokmm.data.repository.RetrofitCharactersRepository
 import okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class CharactersViewModelFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
