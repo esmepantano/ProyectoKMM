@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.app.proyectokmm.data.remote.CharactersService
 import com.app.proyectokmm.data.remote.MarvelCharactersClient
-import com.app.proyectokmm.data.remote.PublicKeyInterceptor
 import com.app.proyectokmm.data.repository.RetrofitCharactersRepository
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
