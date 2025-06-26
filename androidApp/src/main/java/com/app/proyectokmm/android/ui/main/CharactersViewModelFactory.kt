@@ -1,14 +1,29 @@
 package com.app.proyectokmm.android.ui.main
 
+import MarvelClient
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.app.proyectokmm.data.remote.CharactersService
-import com.app.proyectokmm.data.remote.MarvelCharactersClient
-import com.app.proyectokmm.data.repository.RetrofitCharactersRepository
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+//import com.app.proyectokmm.data.remote.MarvelCharactersClient
+import com.app.proyectokmm.data.remote.createHttpClient
+import com.app.proyectokmm.data.repository.KtorCharactersRepository
 
+class CharactersViewModelFactory : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+
+        val ktorClient = createHttpClient()
+
+        val marvelClient = MarvelClient(ktorClient)
+
+        val repository = KtorCharactersRepository(marvelClient)
+
+        val charactersService = CharactersService(repository)
+
+        return CharactersViewModel(charactersService) as T
+    }
+}
+
+/*
 class CharactersViewModelFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         val okHttpClient = OkHttpClient.Builder()
@@ -28,3 +43,5 @@ class CharactersViewModelFactory : ViewModelProvider.Factory {
         return CharactersViewModel(charactersService) as T
     }
 }
+
+ */

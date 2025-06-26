@@ -53,5 +53,7 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
-
+    implementation(libs.ktor.client.core.v234)
+    implementation(libs.ktor.client.okhttp.v234)
+    implementation(libs.ktor.client.serialization)
 }

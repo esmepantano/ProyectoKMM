@@ -1,39 +1,28 @@
-package com.app.proyectokmm.data.remote
+import com.app.proyectokmm.core.PRIVATE_KEY
+import com.app.proyectokmm.core.PUBLIC_KEY
+import com.app.proyectokmm.data.remote.CharacterResult
+import com.app.proyectokmm.data.remote.CharactersResponse
+import com.app.proyectokmm.domain.model.Character
+import com.app.proyectokmm.util.currentTimeMillis
+import com.app.proyectokmm.util.md5
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.request.get
 
-import retrofit2.http.GET
+class MarvelClient(private val client: HttpClient) {
 
-interface MarvelCharactersClient {
+    suspend fun getAllCharacters(): List<Character> {
+        val timestamp = currentTimeMillis()
+        val hash = md5("$timestamp$PRIVATE_KEY$PUBLIC_KEY")
 
-    @GET("v1/public/characters")
-    @Headers("Accept: application/json")
-    suspend fun getAllCharacters(
-        @Query("ts") timestamp: Long,
-        @Query("hash") md5: String
-    ): CharactersResponse
+        val response: CharactersResponse = client.get("https://gateway.marvel.com/v1/public/characters") {
+            url {
+                parameters.append("ts", timestamp.toString())
+                parameters.append("hash", hash)
+                parameters.append("apikey", PUBLIC_KEY)
+            }
+        }.body()
 
-}
-
-data class CharactersResponse(
-    @SerializedName("data") val characters: CharacterData
-)
-
-data class CharacterData(
-    @SerializedName("results")
-    val list: List<CharacterResult>
-)
-
-data class CharacterResult(
-    @SerializedName("id") val id: Long,
-    @SerializedName("name") val name: String,
-    @SerializedName("description") val description: String,
-    @SerializedName("thumbnail") val thumbnail: Thumbnail
-)
-
-data class Thumbnail(
-    @SerializedName("path") val path: String,
-    @SerializedName("extension") val extension: String
-) {
-    fun toUrl() : String {
-        return "$path.$extension"
+        return response.data.results.map { it.toCharacter() }
     }
 }
