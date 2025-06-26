@@ -1,10 +1,9 @@
 package com.app.proyectokmm.android.ui.main
 
-import MarvelClient
+import com.app.proyectokmm.data.remote.MarvelClient
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.app.proyectokmm.data.remote.CharactersService
-//import com.app.proyectokmm.data.remote.MarvelCharactersClient
 import com.app.proyectokmm.data.remote.createHttpClient
 import com.app.proyectokmm.data.repository.KtorCharactersRepository
 

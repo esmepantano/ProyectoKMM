@@ -51,9 +51,8 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.appcompat)
     debugImplementation(libs.compose.ui.tooling)
-    implementation(libs.retrofit)
-    implementation(libs.converter.gson)
-    implementation(libs.ktor.client.core.v234)
-    implementation(libs.ktor.client.okhttp.v234)
-    implementation(libs.ktor.client.serialization)
+    implementation(project(":shared"))
+    implementation(libs.ktor.client.core)
+    implementation(libs.okhttp)
+    implementation(libs.ktor.client.okhttp)
 }

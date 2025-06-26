@@ -21,8 +21,15 @@ class CharactersViewModel(private val charactersService: CharactersService) : Vi
 
     init {
         viewModelScope.launch(coroutineExceptionHandler) {
-            val list = charactersService.getCharacters()
-            _screenState.value = ScreenState.ShowCharacters(list)
+            Log.d("CharactersViewModel", "Iniciando petición de personajes")
+            try {
+                val list = charactersService.getCharacters()
+                Log.d("CharactersViewModel", "Personajes obtenidos: ${list.size}")
+                _screenState.value = ScreenState.ShowCharacters(list)
+            } catch (e: Exception) {
+                Log.e("CharactersViewModel", "Error obteniendo personajes", e)
+                // Aquí deberías manejar el error
+            }
         }
     }
 

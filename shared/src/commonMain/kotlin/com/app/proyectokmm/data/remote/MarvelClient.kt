@@ -1,7 +1,7 @@
+package com.app.proyectokmm.data.remote
+
 import com.app.proyectokmm.core.PRIVATE_KEY
 import com.app.proyectokmm.core.PUBLIC_KEY
-import com.app.proyectokmm.data.remote.CharacterResult
-import com.app.proyectokmm.data.remote.CharactersResponse
 import com.app.proyectokmm.domain.model.Character
 import com.app.proyectokmm.util.currentTimeMillis
 import com.app.proyectokmm.util.md5
