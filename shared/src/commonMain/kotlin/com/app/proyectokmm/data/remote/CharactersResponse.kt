@@ -37,6 +37,6 @@ data class Thumbnail(
     @SerialName("extension") val extension: String
 ) {
     fun toUrl(): String {
-        return "$path.$extension"
+        return "$path.$extension".replace("http://", "https://")
     }
 }

@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("MainActivity", "onCreate iniciado")
 
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -35,25 +34,18 @@ class MainActivity : AppCompatActivity() {
             this.layoutManager = verticalLayoutManager
             this.addItemDecoration(VerticalSpaceItemDecoration(16))
         }
-        Log.d("MainActivity", "RecyclerView configurado")
 
-        // Listen to Retrofit response
         val viewModel =
             ViewModelProvider(this, CharactersViewModelFactory())[CharactersViewModel::class.java]
-        Log.d("MainActivity", "ViewModel creado")
         
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
-                Log.d("MainActivity", "Iniciando observación del ViewModel")
                 viewModel.screenState.collect { state ->
-                    Log.d("MainActivity", "Estado recibido: $state")
                     when (state) {
                         ScreenState.Loading -> {
-                            Log.d("MainActivity", "Mostrando loading")
                             showLoading()
                         }
                         is ScreenState.ShowCharacters -> {
-                            Log.d("MainActivity", "Mostrando ${state.list.size} personajes")
                             showCharacters(state.list)
                         }
                     }
@@ -63,12 +55,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showLoading() {
-        Log.d("MainActivity", "showLoading llamado")
     }
 
     private fun showCharacters(list: List<Character>) {
-        Log.d("MainActivity", "showCharacters llamado con ${list.size} personajes")
         charactersAdapter.submitList(list)
-        Log.d("MainActivity", "Lista enviada al adapter")
     }
 }

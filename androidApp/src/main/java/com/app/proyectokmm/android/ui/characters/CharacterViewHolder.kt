@@ -1,5 +1,6 @@
 package com.app.proyectokmm.android.ui.characters
 
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import com.app.proyectokmm.android.databinding.ListItemCharacterBinding
 import com.squareup.picasso.Picasso
@@ -14,9 +15,16 @@ class CharacterViewHolder(private val binding: ListItemCharacterBinding) : Recyc
         if (character.thumbnailUrl.isNotEmpty()) {
             Picasso.get()
                 .load(character.thumbnailUrl)
-                .into(binding.image)
+                .placeholder(android.R.drawable.ic_menu_gallery)
+                .error(android.R.drawable.ic_menu_report_image)
+                .into(binding.image, object : com.squareup.picasso.Callback {
+                    override fun onSuccess() {
+                    }
+                    override fun onError(e: Exception?) {
+                    }
+                })
         } else {
-            binding.image.setImageURI(null)
+            binding.image.setImageResource(android.R.drawable.ic_menu_gallery)
         }
     }
 
