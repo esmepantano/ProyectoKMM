@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val viewModel =
-            ViewModelProvider(this, CharactersViewModelFactory())[CharactersViewModel::class.java]
+            ViewModelProvider(this, CharactersViewModelFactory(this))[CharactersViewModel::class.java]
         
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.CREATED) {

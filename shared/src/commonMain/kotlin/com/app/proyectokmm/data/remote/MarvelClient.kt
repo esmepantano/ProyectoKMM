@@ -11,7 +11,7 @@ import io.ktor.client.request.get
 
 class MarvelClient(private val client: HttpClient) {
 
-    suspend fun getAllCharacters(): List<Character> {
+    suspend fun getAllCharacters(timestamp: Long, md5: String): List<Character> {
         val timestamp = currentTimeMillis()
         val hash = md5("$timestamp$PRIVATE_KEY$PUBLIC_KEY")
 

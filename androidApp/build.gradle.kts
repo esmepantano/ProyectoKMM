@@ -55,4 +55,5 @@ dependencies {
     implementation(libs.ktor.client.core)
     implementation(libs.okhttp)
     implementation(libs.ktor.client.okhttp)
+    implementation("app.cash.sqldelight:android-driver:2.0.1")
 }
